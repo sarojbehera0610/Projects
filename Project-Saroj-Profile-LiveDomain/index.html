@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Saroj | DevOps Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --bg2: #0f1525;
+      --bg3: #141c30;
+      --accent: #00d4ff;
+      --accent2: #7c3aed;
+      --accent3: #10b981;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --border: rgba(0,212,255,0.15);
+      --glow: 0 0 30px rgba(0,212,255,0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(10,14,26,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+    }
+
+    .nav-logo span { color: var(--text); }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    nav ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      transition: color 0.3s;
+    }
+
+    nav ul a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 8rem 4rem 4rem;
+      z-index: 1;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      text-align: center;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0,212,255,0.08);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.4rem 1.2rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 1px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent3);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.4); }
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      margin-bottom: 1rem;
+      letter-spacing: -2px;
+    }
+
+    .hero h1 .name {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-family: 'Space Mono', monospace;
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      letter-spacing: 1px;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: #94a3b8;
+      line-height: 1.8;
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      font-weight: 300;
+    }
+
+    .hero-hosted {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent3);
+      background: rgba(16,185,129,0.08);
+      border: 1px solid rgba(16,185,129,0.2);
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      background: #fff;
+      box-shadow: 0 0 30px rgba(0,212,255,0.4);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      background: rgba(0,212,255,0.05);
+      transform: translateY(-2px);
+    }
+
+    /* SECTIONS */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 6rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 3rem;
+      letter-spacing: -1px;
+    }
+
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 auto;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      color: #94a3b8;
+      line-height: 1.9;
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+      font-weight: 300;
+    }
+
+    .about-text p strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .stat-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+      transform: translateY(-4px);
+    }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 1px;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-category {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.8rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-category::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .skill-category:hover::before { opacity: 1; }
+
+    .skill-category:hover {
+      border-color: rgba(0,212,255,0.3);
+      transform: translateY(-4px);
+      box-shadow: var(--glow);
+    }
+
+    .skill-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .skill-cat-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag {
+      background: rgba(0,212,255,0.07);
+      border: 1px solid rgba(0,212,255,0.15);
+      color: var(--accent);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* TOOLS */
+    .tools-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .tool-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.85rem;
+      color: var(--text);
+      transition: all 0.3s;
+    }
+
+    .tool-pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .tool-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+
+    /* INFRASTRUCTURE SHOWCASE */
+    .infra-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.82rem;
+      color: #94a3b8;
+      line-height: 2;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .infra-card::before {
+      content: 'LIVE INFRASTRUCTURE';
+      position: absolute;
+      top: 1.2rem; right: 1.5rem;
+      font-size: 0.65rem;
+      color: var(--accent3);
+      letter-spacing: 2px;
+      background: rgba(16,185,129,0.1);
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      border: 1px solid rgba(16,185,129,0.2);
+    }
+
+    .infra-card .comment { color: var(--muted); }
+    .infra-card .keyword { color: var(--accent2); }
+    .infra-card .value { color: var(--accent3); }
+    .infra-card .domain { color: var(--accent); }
+    .infra-card .service { color: #f59e0b; }
+
+    /* JOURNEY */
+    .journey-list {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .journey-list::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, var(--accent), var(--accent2), transparent);
+    }
+
+    .journey-item {
+      position: relative;
+      padding: 0 0 2.5rem 2rem;
+    }
+
+    .journey-item::before {
+      content: '';
+      position: absolute;
+      left: -4px; top: 6px;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .journey-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      margin-bottom: 0.4rem;
+    }
+
+    .journey-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .journey-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* SOCIAL */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .social-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.3s;
+    }
+
+    .social-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: var(--glow);
+    }
+
+    .social-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .social-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .social-handle {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    footer span { color: var(--accent); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.7s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      nav ul { gap: 1.2rem; }
+      .hero { padding: 7rem 1.5rem 3rem; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SAROJ<span>.OPS</span></div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#infrastructure">Infra</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">AVAILABLE FOR OPPORTUNITIES</div>
+    <h1>Hi, I'm <span class="name">Saroj</span><br/>DevOps Engineer</h1>
+    <p class="hero-subtitle">// Cloud Infrastructure · Automation · CI/CD</p>
+    <p class="hero-desc">
+      Passionate about building reliable, scalable cloud infrastructure on AWS.
+      I learn by doing — every project here is a real system I designed and deployed.
+    </p>
+    <div class="hero-hosted">
+      ⚡ This site runs on AWS — S3 + CloudFront + Route 53 — built by me
+    </div>
+    <div class="hero-btns">
+      <a href="#connect" class="btn btn-primary">Get In Touch</a>
+      <a href="#skills" class="btn btn-outline">View My Skills</a>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="fade-in">
+    <p class="section-label">// 01 — about me</p>
+    <h2 class="section-title">Who I Am</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm <strong>Saroj</strong>, a DevOps enthusiast based in <strong>India</strong>, on a hands-on mission to master cloud infrastructure and automation. I work with <strong>AWS, Linux, Docker, Terraform, and CI/CD pipelines</strong> — building real projects every single day.
+        </p>
+        <p>
+          I'm actively learning <strong>AWS services</strong> including EC2, S3, Route 53, CloudFront, IAM, and more. This very website is hosted on infrastructure I configured myself — that's how I learn.
+        </p>
+        <p>
+          My goal is to become a <strong>skilled DevOps/Cloud Engineer</strong> who builds reliable, automated, and scalable systems. I believe the best way to learn DevOps is to <strong>actually do DevOps</strong>.
+        </p>
+        <p>
+          When I'm not breaking and fixing things in the cloud ☁️, I'm documenting my journey so others can learn too.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <span class="stat-num">AWS</span>
+          <span class="stat-label">Primary Cloud</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">∞</span>
+          <span class="stat-label">Learning Mode</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Hands-on Focus</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">🇮🇳</span>
+          <span class="stat-label">Based in India</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="fade-in">
+    <p class="section-label">// 02 — technical skills</p>
+    <h2 class="section-title">What I Work With</h2>
+    <div class="skills-grid">
+      <div class="skill-category">
+        <span class="skill-icon">☁️</span>
+        <div class="skill-cat-title">AWS Cloud Services</div>
+        <div class="skill-tags">
+          <span class="skill-tag">EC2</span>
+          <span class="skill-tag">S3</span>
+          <span class="skill-tag">Route 53</span>
+          <span class="skill-tag">CloudFront</span>
+          <span class="skill-tag">IAM</span>
+          <span class="skill-tag">ACM</span>
+          <span class="skill-tag">VPC</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <span class="skill-icon">🐧</span>
+        <div class="skill-cat-title">Linux & OS</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Ubuntu</span>
+          <span class="skill-tag">Bash Scripting</span>
+          <span class="skill-tag">Shell</span>
+          <span class="skill-tag">Systemd</span>
+          <span class="skill-tag">Cron Jobs</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <span class="skill-icon">🐳</span>
+        <div class="skill-cat-title">Containers & IaC</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">Terraform</span>
+          <span class="skill-tag">Docker Compose</span>
+          <span class="skill-tag">YAML</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <span class="skill-icon">🔁</span>
+        <div class="skill-cat-title">CI/CD & DevOps</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">GitHub Actions</span>
+          <span class="skill-tag">CI/CD Pipelines</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <span class="skill-icon">🌐</span>
+        <div class="skill-cat-title">Networking & DNS</div>
+        <div class="skill-tags">
+          <span class="skill-tag">DNS</span>
+          <span class="skill-tag">Route 53</span>
+          <span class="skill-tag">SSL/TLS</span>
+          <span class="skill-tag">HTTP/HTTPS</span>
+          <span class="skill-tag">CDN</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <span class="skill-icon">📊</span>
+        <div class="skill-cat-title">Monitoring & More</div>
+        <div class="skill-tags">
+          <span class="skill-tag">CloudWatch</span>
+          <span class="skill-tag">Logs</span>
+          <span class="skill-tag">Alerts</span>
+          <span class="skill-tag">Uptime Checks</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 3rem;">
+      <p class="section-label" style="margin-bottom: 1.2rem;">// tools I use daily</p>
+      <div class="tools-row">
+        <div class="tool-pill"><span class="tool-dot" style="background:#FF9900"></span>AWS Console</div>
+        <div class="tool-pill"><span class="tool-dot" style="background:#0078D7"></span>VS Code</div>
+        <div class="tool-pill"><span class="tool-dot" style="background:#F05032"></span>Git</div>
+        <div class="tool-pill"><span class="tool-dot" style="background:#2496ED"></span>Docker</div>
+        <div class="tool-pill"><span class="tool-dot" style="background:#7B42BC"></span>Terraform</div>
+        <div class="tool-pill"><span class="tool-dot" style="background:#4EAA25"></span>Linux Terminal</div>
+        <div class="tool-pill"><span class="tool-dot" style="background:#181717"></span>GitHub</div>
+        <div class="tool-pill"><span class="tool-dot" style="background:#00d4ff"></span>CloudFront</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- INFRASTRUCTURE SHOWCASE -->
+<section id="infrastructure">
+  <div class="fade-in">
+    <p class="section-label">// 03 — live infrastructure</p>
+    <h2 class="section-title">This Site's AWS Stack</h2>
+    <div class="infra-card">
+      <pre>
+<span class="comment"># sarojops.cloud — production infrastructure</span>
+<span class="comment"># configured and deployed by Saroj</span>
+
+<span class="keyword">domain</span>:
+  registrar: <span class="value">Namecheap</span>
+  name:       <span class="domain">sarojops.cloud</span>
+  ssl:        <span class="value">enabled (AWS ACM — free)</span>
+
+<span class="keyword">dns</span>:
+  provider:   <span class="service">AWS Route 53</span>
+  hosted_zone: <span class="domain">sarojops.cloud</span>
+  records:
+    - type: <span class="value">A</span>     → <span class="service">CloudFront Distribution</span>
+    - type: <span class="value">CNAME</span> → <span class="service">ACM Certificate Validation</span>
+
+<span class="keyword">cdn</span>:
+  service:    <span class="service">AWS CloudFront</span>
+  https:      <span class="value">enforced</span>
+  cache:      <span class="value">global edge locations</span>
+
+<span class="keyword">hosting</span>:
+  service:    <span class="service">AWS S3</span>
+  type:       <span class="value">static website</span>
+  cost:       <span class="value">~₹0/month (free tier)</span>
+
+<span class="keyword">status</span>:     <span class="value">🟢 LIVE</span>
+      </pre>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- JOURNEY -->
+<section id="journey">
+  <div class="fade-in">
+    <p class="section-label">// 04 — my journey</p>
+    <h2 class="section-title">Learning Path</h2>
+    <div class="journey-list">
+      <div class="journey-item">
+        <div class="journey-date">2025 — PRESENT</div>
+        <div class="journey-title">Started DevOps Learning Journey</div>
+        <div class="journey-desc">Began mastering AWS, Linux, Docker, and CI/CD. Focused on hands-on projects and real deployments rather than just theory.</div>
+      </div>
+      <div class="journey-item">
+        <div class="journey-date">2025</div>
+        <div class="journey-title">AWS Core Services</div>
+        <div class="journey-desc">Learned EC2, S3, IAM, VPC, Route 53, CloudFront, and ACM. Built and deployed real infrastructure on AWS.</div>
+      </div>
+      <div class="journey-item">
+        <div class="journey-date">2026</div>
+        <div class="journey-title">Launched sarojops.cloud</div>
+        <div class="journey-desc">Registered domain, configured Route 53 hosted zone, set up S3 static hosting, CloudFront CDN, and free SSL — end-to-end by myself.</div>
+      </div>
+      <div class="journey-item">
+        <div class="journey-date">NEXT</div>
+        <div class="journey-title">AWS Certification & More Projects</div>
+        <div class="journey-desc">Pursuing AWS certifications and building more complex DevOps projects — Kubernetes, advanced CI/CD pipelines, and infrastructure as code.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CONNECT -->
+<section id="connect">
+  <div class="fade-in">
+    <p class="section-label">// 05 — let's connect</p>
+    <h2 class="section-title">Find Me Online</h2>
+    <div class="social-grid">
+      <a href="https://github.com/Saroj0610" target="_blank" class="social-card">
+        <div class="social-icon" style="background:rgba(255,255,255,0.05)">⚙️</div>
+        <div>
+          <div class="social-name">GitHub</div>
+          <div class="social-handle">@Saroj0610</div>
+        </div>
+      </a>
+      <a href="https://linkedin.com/in/saroj" target="_blank" class="social-card">
+        <div class="social-icon" style="background:rgba(0,119,181,0.15)">💼</div>
+        <div>
+          <div class="social-name">LinkedIn</div>
+          <div class="social-handle">Connect with me</div>
+        </div>
+      </a>
+      <a href="mailto:saroj@sarojops.cloud" class="social-card">
+        <div class="social-icon" style="background:rgba(0,212,255,0.1)">✉️</div>
+        <div>
+          <div class="social-name">Email</div>
+          <div class="social-handle">saroj@sarojops.cloud</div>
+        </div>
+      </a>
+      <a href="https://sarojops.cloud" class="social-card">
+        <div class="social-icon" style="background:rgba(16,185,129,0.1)">🌐</div>
+        <div>
+          <div class="social-name">Portfolio</div>
+          <div class="social-handle">sarojops.cloud</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Designed & Deployed by <span>Saroj</span> · Hosted on <span>AWS</span> · Domain: <span>sarojops.cloud</span></p>
+  <p style="margin-top: 0.5rem; font-size: 0.7rem;">Route 53 · CloudFront · S3 · ACM · Built with ☁️ and determination</p>
+</footer>
+
+<script>
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
