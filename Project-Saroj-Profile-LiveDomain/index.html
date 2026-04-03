@@ -1,899 +1,912 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Saroj | DevOps Engineer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --bg: #0a0e1a;
-      --bg2: #0f1525;
-      --bg3: #141c30;
-      --accent: #00d4ff;
-      --accent2: #7c3aed;
-      --accent3: #10b981;
-      --text: #e2e8f0;
-      --muted: #64748b;
-      --border: rgba(0,212,255,0.15);
-      --glow: 0 0 30px rgba(0,212,255,0.15);
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
-    }
-
-    /* Grid background */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
-      background-size: 50px 50px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 4rem;
-      background: rgba(10,14,26,0.85);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      font-family: 'Space Mono', monospace;
-      font-size: 1.1rem;
-      color: var(--accent);
-      letter-spacing: 2px;
-    }
-
-    .nav-logo span { color: var(--text); }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2.5rem;
-    }
-
-    nav ul a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.85rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      font-family: 'Space Mono', monospace;
-      transition: color 0.3s;
-    }
-
-    nav ul a:hover { color: var(--accent); }
-
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      padding: 8rem 4rem 4rem;
-      z-index: 1;
-    }
-
-    .hero-glow {
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
-
-    .hero-content {
-      max-width: 800px;
-      text-align: center;
-      animation: fadeUp 1s ease forwards;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(0,212,255,0.08);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 0.4rem 1.2rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--accent);
-      letter-spacing: 1px;
-      margin-bottom: 2rem;
-    }
-
-    .hero-badge::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--accent3);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.4); }
-    }
-
-    .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(3rem, 8vw, 5.5rem);
-      font-weight: 800;
-      line-height: 1.05;
-      margin-bottom: 1rem;
-      letter-spacing: -2px;
-    }
-
-    .hero h1 .name {
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-subtitle {
-      font-family: 'Space Mono', monospace;
-      font-size: 1rem;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-      letter-spacing: 1px;
-    }
-
-    .hero-desc {
-      font-size: 1.1rem;
-      color: #94a3b8;
-      line-height: 1.8;
-      max-width: 600px;
-      margin: 0 auto 2.5rem;
-      font-weight: 300;
-    }
-
-    .hero-hosted {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--accent3);
-      background: rgba(16,185,129,0.08);
-      border: 1px solid rgba(16,185,129,0.2);
-      border-radius: 6px;
-      padding: 0.5rem 1rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .hero-btns {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      padding: 0.85rem 2rem;
-      border-radius: 8px;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.85rem;
-      letter-spacing: 1px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.3s;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: var(--bg);
-      border: none;
-      font-weight: 700;
-    }
-
-    .btn-primary:hover {
-      background: #fff;
-      box-shadow: 0 0 30px rgba(0,212,255,0.4);
-      transform: translateY(-2px);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--accent);
-      border: 1px solid var(--border);
-    }
-
-    .btn-outline:hover {
-      border-color: var(--accent);
-      background: rgba(0,212,255,0.05);
-      transform: translateY(-2px);
-    }
-
-    /* SECTIONS */
-    section {
-      position: relative;
-      z-index: 1;
-      padding: 6rem 4rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--accent);
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-    }
-
-    .section-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 800;
-      margin-bottom: 3rem;
-      letter-spacing: -1px;
-    }
-
-    .section-divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-      margin: 0 auto;
-    }
-
-    /* ABOUT */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-    }
-
-    .about-text p {
-      color: #94a3b8;
-      line-height: 1.9;
-      font-size: 1rem;
-      margin-bottom: 1.2rem;
-      font-weight: 300;
-    }
-
-    .about-text p strong {
-      color: var(--accent);
-      font-weight: 500;
-    }
-
-    .about-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
-
-    .stat-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      text-align: center;
-      transition: all 0.3s;
-    }
-
-    .stat-card:hover {
-      border-color: var(--accent);
-      box-shadow: var(--glow);
-      transform: translateY(-4px);
-    }
-
-    .stat-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--accent);
-      display: block;
-    }
-
-    .stat-label {
-      font-size: 0.8rem;
-      color: var(--muted);
-      font-family: 'Space Mono', monospace;
-      letter-spacing: 1px;
-    }
-
-    /* SKILLS */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .skill-category {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.8rem;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .skill-category::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .skill-category:hover::before { opacity: 1; }
-
-    .skill-category:hover {
-      border-color: rgba(0,212,255,0.3);
-      transform: translateY(-4px);
-      box-shadow: var(--glow);
-    }
-
-    .skill-icon {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      display: block;
-    }
-
-    .skill-cat-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: var(--text);
-    }
-
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .skill-tag {
-      background: rgba(0,212,255,0.07);
-      border: 1px solid rgba(0,212,255,0.15);
-      color: var(--accent);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      padding: 0.3rem 0.7rem;
-      border-radius: 4px;
-      letter-spacing: 0.5px;
-    }
-
-    /* TOOLS */
-    .tools-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .tool-pill {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 0.6rem 1.2rem;
-      font-size: 0.85rem;
-      color: var(--text);
-      transition: all 0.3s;
-    }
-
-    .tool-pill:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    .tool-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-    }
-
-    /* INFRASTRUCTURE SHOWCASE */
-    .infra-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2.5rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.82rem;
-      color: #94a3b8;
-      line-height: 2;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .infra-card::before {
-      content: 'LIVE INFRASTRUCTURE';
-      position: absolute;
-      top: 1.2rem; right: 1.5rem;
-      font-size: 0.65rem;
-      color: var(--accent3);
-      letter-spacing: 2px;
-      background: rgba(16,185,129,0.1);
-      padding: 0.25rem 0.75rem;
-      border-radius: 100px;
-      border: 1px solid rgba(16,185,129,0.2);
-    }
-
-    .infra-card .comment { color: var(--muted); }
-    .infra-card .keyword { color: var(--accent2); }
-    .infra-card .value { color: var(--accent3); }
-    .infra-card .domain { color: var(--accent); }
-    .infra-card .service { color: #f59e0b; }
-
-    /* JOURNEY */
-    .journey-list {
-      position: relative;
-      padding-left: 2rem;
-    }
-
-    .journey-list::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 1px;
-      background: linear-gradient(180deg, var(--accent), var(--accent2), transparent);
-    }
-
-    .journey-item {
-      position: relative;
-      padding: 0 0 2.5rem 2rem;
-    }
-
-    .journey-item::before {
-      content: '';
-      position: absolute;
-      left: -4px; top: 6px;
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 10px var(--accent);
-    }
-
-    .journey-date {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--accent);
-      letter-spacing: 2px;
-      margin-bottom: 0.4rem;
-    }
-
-    .journey-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
-
-    .journey-desc {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    /* SOCIAL */
-    .social-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.2rem;
-    }
-
-    .social-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      text-decoration: none;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      transition: all 0.3s;
-    }
-
-    .social-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-3px);
-      box-shadow: var(--glow);
-    }
-
-    .social-icon {
-      width: 44px; height: 44px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      flex-shrink: 0;
-    }
-
-    .social-name {
-      font-family: 'Syne', sans-serif;
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    .social-handle {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-top: 0.2rem;
-    }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 3rem 2rem;
-      border-top: 1px solid var(--border);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--muted);
-      position: relative;
-      z-index: 1;
-    }
-
-    footer span { color: var(--accent); }
-
-    /* ANIMATIONS */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.7s ease;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      nav ul { gap: 1.2rem; }
-      .hero { padding: 7rem 1.5rem 3rem; }
-      section { padding: 4rem 1.5rem; }
-      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Saroj Behera — DevOps Engineer. AWS | Linux | Cloud Infrastructure. Open to opportunities in Nagpur and remote."/>
+<meta name="keywords" content="Saroj Behera, DevOps Engineer, AWS, Linux, Cloud, Nagpur, Route53, EC2, VPC"/>
+<title>Saroj Behera — DevOps Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --navy:    #0d1117;
+  --navy2:   #161b22;
+  --navy3:   #21262d;
+  --navy4:   #30363d;
+  --blue:    #2f81f7;
+  --blue2:   #1f6feb;
+  --cyan:    #39d353;
+  --text:    #e6edf3;
+  --muted:   #8b949e;
+  --border:  #30363d;
+  --white:   #ffffff;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--navy);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  font-size:15px;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+
+/* ── SUBTLE GRID BACKGROUND ── */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(47,129,247,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(47,129,247,0.04) 1px, transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* subtle radial glow top */
+body::after{
+  content:'';
+  position:fixed;
+  top:-200px; left:50%;
+  transform:translateX(-50%);
+  width:900px; height:600px;
+  background:radial-gradient(ellipse at center, rgba(47,129,247,0.07) 0%, transparent 65%);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  background:rgba(13,17,23,0.88);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex; justify-content:space-between; align-items:center;
+  padding:0 2.5rem; height:58px;
+}
+.nav-logo{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.88rem; font-weight:500;
+  color:var(--text); letter-spacing:0.5px;
+  display:flex; align-items:center; gap:0.5rem;
+}
+.nav-logo .dot{
+  width:8px;height:8px;
+  border-radius:50%;
+  background:var(--cyan);
+  animation:pulse 2.5s infinite;
+}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(57,211,83,0.4);}50%{box-shadow:0 0 0 6px rgba(57,211,83,0);}}
+nav ul{list-style:none;display:flex;gap:1.8rem;align-items:center;}
+nav a{color:var(--muted);text-decoration:none;font-size:0.82rem;font-weight:500;transition:color 0.2s;letter-spacing:0.3px;}
+nav a:hover{color:var(--text);}
+.nav-hire{
+  background:var(--blue2);color:#fff !important;
+  padding:0.4rem 1.1rem;border-radius:6px;
+  font-size:0.8rem !important;font-weight:600 !important;
+  transition:background 0.2s !important;
+}
+.nav-hire:hover{background:var(--blue) !important;}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex; align-items:center;
+  position:relative; z-index:1;
+  padding:7rem 2.5rem 4rem;
+}
+.hero-inner{
+  max-width:1100px; margin:0 auto; width:100%;
+  display:grid; grid-template-columns:1fr 420px;
+  gap:5rem; align-items:center;
+}
+.hero-badge{
+  display:inline-flex; align-items:center; gap:0.5rem;
+  background:rgba(57,211,83,0.1);
+  border:1px solid rgba(57,211,83,0.25);
+  border-radius:100px; padding:0.35rem 1rem;
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.72rem; color:var(--cyan);
+  letter-spacing:1px; margin-bottom:1.5rem;
+}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:blink 1.8s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.hero h1{
+  font-size:clamp(2.4rem,4.5vw,3.6rem);
+  font-weight:700; line-height:1.1;
+  letter-spacing:-1.5px; margin-bottom:0.6rem;
+}
+.hero h1 .firstname{color:var(--text);}
+.hero h1 .lastname{color:var(--blue);}
+.hero-tagline{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.88rem; color:var(--muted);
+  margin-bottom:1.5rem; letter-spacing:0.5px;
+}
+.hero-tagline span{color:var(--blue);}
+.hero-desc{
+  font-size:1rem; color:#c9d1d9;
+  line-height:1.85; font-weight:300;
+  max-width:520px; margin-bottom:2rem;
+}
+.hero-desc strong{color:var(--text);font-weight:600;}
+
+/* Impact numbers */
+.impact-row{
+  display:flex; gap:2rem; margin-bottom:2.5rem;
+  padding:1.2rem 1.5rem;
+  background:var(--navy2);
+  border:1px solid var(--border);
+  border-radius:10px;
+}
+.impact-stat{text-align:center;}
+.impact-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:1.6rem; font-weight:600;
+  color:var(--blue); display:block;
+}
+.impact-label{font-size:0.72rem;color:var(--muted);margin-top:0.1rem;white-space:nowrap;}
+
+.hero-btns{display:flex;gap:0.75rem;flex-wrap:wrap;}
+.btn{
+  padding:0.65rem 1.5rem; border-radius:6px;
+  font-size:0.85rem; font-weight:600;
+  text-decoration:none; transition:all 0.2s;
+  display:inline-flex; align-items:center; gap:0.4rem;
+  font-family:'Inter',sans-serif;
+}
+.btn-blue{background:var(--blue2);color:#fff;border:1px solid var(--blue2);}
+.btn-blue:hover{background:var(--blue);border-color:var(--blue);}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border);}
+.btn-ghost:hover{border-color:var(--muted);background:var(--navy2);}
+
+/* Hero right — terminal card */
+.hero-card{
+  background:var(--navy2);
+  border:1px solid var(--border);
+  border-radius:12px; overflow:hidden;
+}
+.card-titlebar{
+  background:var(--navy3);
+  padding:0.7rem 1rem;
+  display:flex; align-items:center; gap:0.5rem;
+  border-bottom:1px solid var(--border);
+}
+.dot-r{width:12px;height:12px;border-radius:50%;background:#ff5f57;}
+.dot-y{width:12px;height:12px;border-radius:50%;background:#ffbd2e;}
+.dot-g{width:12px;height:12px;border-radius:50%;background:#28ca41;}
+.card-filename{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.72rem; color:var(--muted);
+  margin-left:0.5rem;
+}
+.card-body{padding:1.5rem;font-family:'JetBrains Mono',monospace;font-size:0.8rem;line-height:2;}
+.c-comment{color:#6e7681;}
+.c-key{color:#79c0ff;}
+.c-val{color:#a5d6ff;}
+.c-str{color:#a5d6ff;}
+.c-green{color:var(--cyan);}
+.c-yellow{color:#e3b341;}
+.c-blue{color:var(--blue);}
+.c-orange{color:#ffa657;}
+
+/* ── SECTIONS ── */
+.section-wrap{position:relative;z-index:1;padding:5rem 2.5rem;}
+.section-inner{max-width:1100px;margin:0 auto;}
+.section-head{margin-bottom:3rem;}
+.section-eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.72rem; color:var(--blue);
+  letter-spacing:2px; text-transform:uppercase;
+  margin-bottom:0.5rem;
+}
+.section-title{
+  font-size:1.7rem; font-weight:700;
+  letter-spacing:-0.5px; color:var(--text);
+}
+
+/* ── HIGHLIGHT BANNER ── */
+.highlight-banner{
+  background:linear-gradient(135deg, rgba(47,129,247,0.12), rgba(47,129,247,0.04));
+  border:1px solid rgba(47,129,247,0.25);
+  border-radius:12px; padding:2rem 2.5rem;
+  margin-bottom:5rem; position:relative; z-index:1;
+  display:grid; grid-template-columns:repeat(4,1fr); gap:2rem;
+  max-width:1100px; margin-left:auto; margin-right:auto;
+}
+.highlight-banner::before{
+  content:'WHY HIRE SAROJ';
+  position:absolute; top:-11px; left:2rem;
+  background:var(--navy); padding:0 0.75rem;
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.65rem; color:var(--blue);
+  letter-spacing:2px; border-radius:3px;
+}
+.hl-item{text-align:center;}
+.hl-icon{font-size:1.6rem;margin-bottom:0.5rem;display:block;}
+.hl-title{font-size:0.88rem;font-weight:600;color:var(--text);margin-bottom:0.3rem;}
+.hl-desc{font-size:0.78rem;color:var(--muted);line-height:1.6;}
+
+/* ── EXPERIENCE ── */
+.exp-timeline{position:relative;padding-left:2rem;}
+.exp-timeline::before{
+  content:'';
+  position:absolute; left:0; top:8px; bottom:0;
+  width:1px;
+  background:linear-gradient(180deg,var(--blue),var(--border),transparent);
+}
+.exp-entry{
+  position:relative; margin-bottom:3rem;
+  background:var(--navy2); border:1px solid var(--border);
+  border-radius:10px; padding:1.8rem;
+  transition:border-color 0.2s;
+}
+.exp-entry:hover{border-color:rgba(47,129,247,0.4);}
+.exp-entry::before{
+  content:'';
+  position:absolute; left:-2.44rem; top:1.5rem;
+  width:10px; height:10px; border-radius:50%;
+  background:var(--blue); border:2px solid var(--navy);
+  box-shadow:0 0 0 3px rgba(47,129,247,0.2);
+}
+.exp-current::before{background:var(--cyan)!important;box-shadow:0 0 0 3px rgba(57,211,83,0.2)!important;}
+.exp-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;}
+.exp-left-info{}
+.exp-role{font-size:1rem;font-weight:600;color:var(--text);margin-bottom:0.2rem;}
+.exp-company{font-size:0.85rem;color:var(--blue);font-weight:500;}
+.exp-meta{display:flex;gap:1rem;margin-top:0.3rem;flex-wrap:wrap;}
+.exp-meta span{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);}
+.exp-badge{
+  background:rgba(57,211,83,0.1); border:1px solid rgba(57,211,83,0.25);
+  color:var(--cyan); font-family:'JetBrains Mono',monospace;
+  font-size:0.68rem; padding:0.25rem 0.7rem; border-radius:100px;
+  white-space:nowrap; height:fit-content;
+}
+.exp-badge-past{background:var(--navy3);border-color:var(--border);color:var(--muted);}
+.exp-summary{font-size:0.88rem;color:#c9d1d9;font-weight:300;line-height:1.8;margin-bottom:1rem;}
+.exp-summary strong{color:var(--text);font-weight:500;}
+.exp-highlights{
+  display:grid; grid-template-columns:repeat(2,1fr); gap:0.5rem;
+}
+.exp-hl{
+  display:flex; align-items:flex-start; gap:0.5rem;
+  font-size:0.82rem; color:#8b949e; line-height:1.6;
+  padding:0.5rem 0.75rem;
+  background:var(--navy3); border-radius:6px;
+}
+.exp-hl::before{content:'▸';color:var(--blue);flex-shrink:0;font-size:0.75rem;margin-top:2px;}
+.exp-hl code{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.75rem; color:var(--cyan);
+  background:rgba(57,211,83,0.08);
+  padding:0.05rem 0.3rem; border-radius:3px;
+}
+
+/* ── SKILLS ── */
+.skills-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.skill-card{
+  background:var(--navy2); border:1px solid var(--border);
+  border-radius:10px; padding:1.5rem;
+  transition:border-color 0.2s;
+}
+.skill-card:hover{border-color:rgba(47,129,247,0.3);}
+.skill-card-top{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.2rem;}
+.skill-card-icon{
+  width:36px;height:36px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+}
+.skill-card-title{font-size:0.88rem;font-weight:600;color:var(--text);}
+.skill-card-sub{font-size:0.75rem;color:var(--muted);}
+.tags{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.7rem; padding:0.25rem 0.6rem;
+  border-radius:4px; border:1px solid;
+}
+.tag-blue{background:rgba(47,129,247,0.1);color:#79c0ff;border-color:rgba(47,129,247,0.25);}
+.tag-green{background:rgba(57,211,83,0.08);color:var(--cyan);border-color:rgba(57,211,83,0.2);}
+.tag-amber{background:rgba(227,179,65,0.08);color:#e3b341;border-color:rgba(227,179,65,0.2);}
+.tag-gray{background:var(--navy3);color:var(--muted);border-color:var(--border);}
+
+/* Progress bars */
+.progress-list{display:flex;flex-direction:column;gap:1rem;margin-top:2.5rem;}
+.progress-item{}
+.progress-top{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);margin-bottom:0.4rem;}
+.progress-bar{height:3px;background:var(--navy3);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:2px;transition:width 1.5s ease;}
+
+/* ── PROJECTS ── */
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+.project-card{
+  background:var(--navy2); border:1px solid var(--border);
+  border-radius:10px; padding:1.4rem;
+  transition:all 0.25s; display:flex;
+  flex-direction:column; gap:0.75rem;
+  text-decoration:none; color:inherit;
+}
+.project-card:hover{
+  border-color:rgba(47,129,247,0.5);
+  transform:translateY(-3px);
+  box-shadow:0 8px 30px rgba(0,0,0,0.3);
+}
+.proj-top{display:flex;justify-content:space-between;align-items:flex-start;gap:0.5rem;}
+.proj-title{font-size:0.9rem;font-weight:600;color:var(--text);line-height:1.4;}
+.proj-diff{font-family:'JetBrains Mono',monospace;font-size:0.65rem;padding:0.2rem 0.5rem;border-radius:3px;white-space:nowrap;flex-shrink:0;}
+.diff-adv{background:rgba(248,81,73,0.1);color:#f85149;border:1px solid rgba(248,81,73,0.2);}
+.diff-int{background:rgba(227,179,65,0.1);color:#e3b341;border:1px solid rgba(227,179,65,0.2);}
+.diff-beg{background:rgba(57,211,83,0.1);color:var(--cyan);border:1px solid rgba(57,211,83,0.2);}
+.diff-live{background:rgba(47,129,247,0.1);color:#79c0ff;border:1px solid rgba(47,129,247,0.2);}
+.proj-desc{font-size:0.8rem;color:var(--muted);line-height:1.7;flex:1;}
+.proj-tags{display:flex;flex-wrap:wrap;gap:0.35rem;}
+.proj-link{
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.7rem;color:var(--blue);
+  display:flex;align-items:center;gap:0.3rem;
+  margin-top:auto;
+}
+.projects-all{
+  margin-top:1.5rem; text-align:center;
+  padding:1.2rem;
+  background:var(--navy2); border:1px solid var(--border);
+  border-radius:10px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.projects-all-text{font-size:0.85rem;color:var(--muted);}
+.projects-all-text strong{color:var(--text);}
+
+/* ── CONNECT ── */
+.connect-layout{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+.connect-left p{font-size:0.92rem;color:#c9d1d9;font-weight:300;line-height:1.85;margin-bottom:1.5rem;}
+.connect-left p strong{color:var(--text);font-weight:500;}
+.connect-availability{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  background:rgba(57,211,83,0.08);
+  border:1px solid rgba(57,211,83,0.2);
+  border-radius:8px; padding:0.75rem 1.2rem;
+  margin-bottom:1.5rem;
+}
+.avail-dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);animation:pulse 2s infinite;}
+.avail-text{font-size:0.85rem;color:var(--text);font-weight:500;}
+.avail-sub{font-size:0.75rem;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.connect-links{display:flex;flex-direction:column;gap:0.75rem;}
+.connect-link{
+  display:flex;align-items:center;gap:1rem;
+  padding:1rem 1.2rem;
+  background:var(--navy2);border:1px solid var(--border);
+  border-radius:8px;text-decoration:none;color:var(--text);
+  transition:all 0.2s;
+}
+.connect-link:hover{border-color:rgba(47,129,247,0.4);background:rgba(47,129,247,0.05);}
+.cl-icon{
+  width:38px;height:38px;border-radius:8px;
+  background:var(--navy3);display:flex;
+  align-items:center;justify-content:center;
+  font-size:1rem;flex-shrink:0;
+}
+.cl-label{font-size:0.85rem;font-weight:500;}
+.cl-val{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);margin-top:0.1rem;}
+.cl-arrow{margin-left:auto;color:var(--muted);font-size:0.8rem;}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--border);
+  padding:2rem 2.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  position:relative;z-index:1;
+  flex-wrap:wrap;gap:1rem;
+}
+.footer-left{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);}
+.footer-left a{color:var(--blue);text-decoration:none;}
+.footer-right{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);}
+
+/* ── SECTION DIVIDER ── */
+.divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+  position:relative;z-index:1;
+  max-width:1100px;margin:0 auto;
+}
+
+/* ── FADE IN ── */
+.fade{opacity:0;transform:translateY(20px);transition:all 0.65s ease;}
+.fade.visible{opacity:1;transform:translateY(0);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-card{display:none;}
+  .highlight-banner{grid-template-columns:repeat(2,1fr);}
+  .projects-grid{grid-template-columns:repeat(2,1fr);}
+  .skills-layout,.connect-layout{grid-template-columns:1fr;}
+  nav ul li:not(:last-child){display:none;}
+}
+@media(max-width:600px){
+  nav{padding:0 1rem;}
+  .section-wrap{padding:3.5rem 1.2rem;}
+  .hero{padding:6rem 1.2rem 3rem;}
+  .highlight-banner{grid-template-columns:1fr 1fr;padding:1.5rem;margin:0 1.2rem 3rem;}
+  .projects-grid{grid-template-columns:1fr;}
+  .exp-highlights{grid-template-columns:1fr;}
+  .impact-row{gap:1rem;}
+  footer{flex-direction:column;text-align:center;}
+}
+</style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">SAROJ<span>.OPS</span></div>
+  <div class="nav-logo">
+    <span class="dot"></span>
+    Saroj Behera
+  </div>
   <ul>
-    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
     <li><a href="#skills">Skills</a></li>
-    <li><a href="#infrastructure">Infra</a></li>
-    <li><a href="#journey">Journey</a></li>
-    <li><a href="#connect">Connect</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#connect" class="nav-hire">Hire Me</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-content">
-    <div class="hero-badge">AVAILABLE FOR OPPORTUNITIES</div>
-    <h1>Hi, I'm <span class="name">Saroj</span><br/>DevOps Engineer</h1>
-    <p class="hero-subtitle">// Cloud Infrastructure · Automation · CI/CD</p>
-    <p class="hero-desc">
-      Passionate about building reliable, scalable cloud infrastructure on AWS.
-      I learn by doing — every project here is a real system I designed and deployed.
-    </p>
-    <div class="hero-hosted">
-      ⚡ This site runs on AWS — S3 + CloudFront + Route 53 — built by me
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge">Open to DevOps / Cloud Engineer Roles</div>
+      <h1>
+        <span class="firstname">Saroj </span><span class="lastname">Behera</span>
+      </h1>
+      <p class="hero-tagline">DevOps Engineer &nbsp;·&nbsp; <span>AWS</span> &nbsp;·&nbsp; Linux &nbsp;·&nbsp; Cloud Infrastructure</p>
+      <p class="hero-desc">
+        B.Tech engineer with <strong>1.5 years of production Linux server administration</strong> and currently a DevOps Intern at Greamio Technologies. I've built <strong>14 real AWS projects</strong> — VPCs, Auto Scaling, ALB, CloudWatch, EFS, RDS — all from scratch, all documented.
+        <br/><br/>This portfolio itself runs on AWS infrastructure I configured.
+      </p>
+
+      <div class="impact-row">
+        <div class="impact-stat">
+          <span class="impact-num">14</span>
+          <span class="impact-label">AWS Projects</span>
+        </div>
+        <div class="impact-stat">
+          <span class="impact-num">1.5yr</span>
+          <span class="impact-label">Linux Experience</span>
+        </div>
+        <div class="impact-stat">
+          <span class="impact-num">10+</span>
+          <span class="impact-label">AWS Services</span>
+        </div>
+        <div class="impact-stat">
+          <span class="impact-num">Now</span>
+          <span class="impact-label">Available</span>
+        </div>
+      </div>
+
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-blue">View Projects</a>
+        <a href="https://github.com/sarojbehera0610/Saroj-AWS-DevOps-Projects" target="_blank" class="btn btn-ghost">GitHub Repos</a>
+        <a href="mailto:sarojbehera0610@gmail.com" class="btn btn-ghost">Email Me</a>
+      </div>
     </div>
-    <div class="hero-btns">
-      <a href="#connect" class="btn btn-primary">Get In Touch</a>
-      <a href="#skills" class="btn btn-outline">View My Skills</a>
+
+    <!-- Terminal card -->
+    <div class="hero-card">
+      <div class="card-titlebar">
+        <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+        <span class="card-filename">saroj-behera.yaml</span>
+      </div>
+      <div class="card-body">
+        <span class="c-comment"># DevOps Engineer Profile</span><br/>
+        <span class="c-key">name</span>: <span class="c-str">"Saroj Behera"</span><br/>
+        <span class="c-key">location</span>: <span class="c-str">"Nagpur, Maharashtra"</span><br/>
+        <span class="c-key">status</span>: <span class="c-green">open_to_hire</span><br/><br/>
+        <span class="c-key">experience</span>:<br/>
+        &nbsp;&nbsp;- <span class="c-orange">Greamio Technologies</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-comment"># DevOps Intern · Jan 2026</span><br/>
+        &nbsp;&nbsp;- <span class="c-orange">Splashjet Inkjet Ink</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-comment"># Linux Admin · 1.5 yrs</span><br/><br/>
+        <span class="c-key">aws_services</span>:<br/>
+        &nbsp;&nbsp;- <span class="c-blue">EC2, VPC, S3, IAM</span><br/>
+        &nbsp;&nbsp;- <span class="c-blue">ALB, ASG, EBS, EFS</span><br/>
+        &nbsp;&nbsp;- <span class="c-blue">CloudWatch, RDS</span><br/>
+        &nbsp;&nbsp;- <span class="c-blue">Route53, CloudFront</span><br/><br/>
+        <span class="c-key">projects_completed</span>: <span class="c-yellow">14</span><br/>
+        <span class="c-key">linux_proficiency</span>: <span class="c-green">production</span><br/>
+        <span class="c-key">education</span>: <span class="c-str">"B.Tech E&amp;TC 2024"</span><br/>
+        <span class="c-key">github</span>: <span class="c-blue">sarojbehera0610</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY HIRE SAROJ BANNER -->
+<div class="highlight-banner fade">
+  <div class="hl-item">
+    <span class="hl-icon">⚡</span>
+    <div class="hl-title">Real Production Experience</div>
+    <div class="hl-desc">1.5 years managing live Linux servers in a production environment — not just labs</div>
+  </div>
+  <div class="hl-item">
+    <span class="hl-icon">☁️</span>
+    <div class="hl-title">14 AWS Projects Done</div>
+    <div class="hl-desc">From VPC design to Auto Scaling to CloudWatch — all built hands-on and documented</div>
+  </div>
+  <div class="hl-item">
+    <span class="hl-icon">🔧</span>
+    <div class="hl-title">Debugger Mindset</div>
+    <div class="hl-desc">Every project was debugged independently — route tables, IAM roles, config files — real problem solving</div>
+  </div>
+  <div class="hl-item">
+    <span class="hl-icon">📈</span>
+    <div class="hl-title">Fast Learner</div>
+    <div class="hl-desc">14 advanced AWS projects in 6 months of DevOps learning — self-driven and consistent</div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="section-wrap" id="experience">
+  <div class="section-inner">
+    <div class="section-head fade">
+      <p class="section-eyebrow">02 — Experience</p>
+      <h2 class="section-title">Work History</h2>
+    </div>
+
+    <div class="exp-timeline">
+
+      <!-- Greamio -->
+      <div class="exp-entry exp-current fade">
+        <div class="exp-top">
+          <div class="exp-left-info">
+            <div class="exp-role">DevOps Intern</div>
+            <div class="exp-company">Greamio Technologies Pvt Ltd</div>
+            <div class="exp-meta">
+              <span>📅 Jan 2026 — Present</span>
+              <span>📍 Nagpur, Maharashtra</span>
+            </div>
+          </div>
+          <span class="exp-badge">Current</span>
+        </div>
+        <p class="exp-summary">
+          Applying DevOps practices in a real cloud environment — deploying and managing AWS infrastructure, configuring networking, and building scalable solutions as part of the engineering team.
+        </p>
+        <div class="exp-highlights">
+          <div class="exp-hl">EC2 deployments with custom <code>security hardening</code></div>
+          <div class="exp-hl">VPC design — <code>public/private subnets</code>, NAT, routing</div>
+          <div class="exp-hl">ALB with <code>path-based routing</code> + ASG integration</div>
+          <div class="exp-hl">CloudWatch with <code>custom metrics</code> + log collection</div>
+          <div class="exp-hl">Storage with <code>S3</code>, <code>EBS</code>, <code>EFS</code> per use case</div>
+          <div class="exp-hl">This portfolio: <code>S3+CloudFront+Route53+ACM</code></div>
+        </div>
+      </div>
+
+      <!-- Splashjet -->
+      <div class="exp-entry fade">
+        <div class="exp-top">
+          <div class="exp-left-info">
+            <div class="exp-role">Graduate Engineer Trainee — Operations</div>
+            <div class="exp-company">Splashjet Inkjet Ink Pvt Ltd</div>
+            <div class="exp-meta">
+              <span>📅 2023 — Mid 2024 · 1.5 years</span>
+              <span>🏭 Manufacturing Industry</span>
+            </div>
+          </div>
+          <span class="exp-badge exp-badge-past">1.5 yrs</span>
+        </div>
+        <p class="exp-summary">
+          Non-IT manufacturing company with <strong>real Linux server administration on production systems</strong> — user access control, system monitoring, storage management. A strong operational foundation that most DevOps freshers don't have.
+        </p>
+        <div class="exp-highlights">
+          <div class="exp-hl">User management: <code>useradd</code>, <code>usermod -aG</code>, access revocation</div>
+          <div class="exp-hl">File permissions: <code>chmod</code>, <code>chown</code> on sensitive directories</div>
+          <div class="exp-hl">Process monitoring: <code>ps aux</code>, <code>top</code>, <code>kill -9</code></div>
+          <div class="exp-hl">Package management: <code>yum</code> installs and updates</div>
+          <div class="exp-hl">Disk tracking: <code>df -h</code>, <code>du -sh</code>, <code>mount</code> for storage</div>
+          <div class="exp-hl">Reduced unauthorized access risk via strict <code>permission control</code></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
 
-<div class="section-divider"></div>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="fade-in">
-    <p class="section-label">// 01 — about me</p>
-    <h2 class="section-title">Who I Am</h2>
-    <div class="about-grid">
-      <div class="about-text">
-        <p>
-          I'm <strong>Saroj</strong>, a DevOps enthusiast based in <strong>India</strong>, on a hands-on mission to master cloud infrastructure and automation. I work with <strong>AWS, Linux, Docker, Terraform, and CI/CD pipelines</strong> — building real projects every single day.
-        </p>
-        <p>
-          I'm actively learning <strong>AWS services</strong> including EC2, S3, Route 53, CloudFront, IAM, and more. This very website is hosted on infrastructure I configured myself — that's how I learn.
-        </p>
-        <p>
-          My goal is to become a <strong>skilled DevOps/Cloud Engineer</strong> who builds reliable, automated, and scalable systems. I believe the best way to learn DevOps is to <strong>actually do DevOps</strong>.
-        </p>
-        <p>
-          When I'm not breaking and fixing things in the cloud ☁️, I'm documenting my journey so others can learn too.
-        </p>
-      </div>
-      <div class="about-stats">
-        <div class="stat-card">
-          <span class="stat-num">AWS</span>
-          <span class="stat-label">Primary Cloud</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-num">∞</span>
-          <span class="stat-label">Learning Mode</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-num">100%</span>
-          <span class="stat-label">Hands-on Focus</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-num">🇮🇳</span>
-          <span class="stat-label">Based in India</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
+<div class="divider"></div>
 
 <!-- SKILLS -->
-<section id="skills">
-  <div class="fade-in">
-    <p class="section-label">// 02 — technical skills</p>
-    <h2 class="section-title">What I Work With</h2>
-    <div class="skills-grid">
-      <div class="skill-category">
-        <span class="skill-icon">☁️</span>
-        <div class="skill-cat-title">AWS Cloud Services</div>
-        <div class="skill-tags">
-          <span class="skill-tag">EC2</span>
-          <span class="skill-tag">S3</span>
-          <span class="skill-tag">Route 53</span>
-          <span class="skill-tag">CloudFront</span>
-          <span class="skill-tag">IAM</span>
-          <span class="skill-tag">ACM</span>
-          <span class="skill-tag">VPC</span>
+<div class="section-wrap" id="skills">
+  <div class="section-inner">
+    <div class="section-head fade">
+      <p class="section-eyebrow">03 — Skills</p>
+      <h2 class="section-title">Technical Stack</h2>
+    </div>
+
+    <div class="skills-layout fade">
+      <div class="skill-card">
+        <div class="skill-card-top">
+          <div class="skill-card-icon" style="background:rgba(255,153,0,0.12);">☁️</div>
+          <div>
+            <div class="skill-card-title">AWS Cloud Services</div>
+            <div class="skill-card-sub">Hands-on with 10+ services</div>
+          </div>
+        </div>
+        <div class="tags">
+          <span class="tag tag-blue">EC2</span>
+          <span class="tag tag-blue">VPC</span>
+          <span class="tag tag-blue">S3</span>
+          <span class="tag tag-blue">IAM</span>
+          <span class="tag tag-blue">EBS</span>
+          <span class="tag tag-blue">EFS</span>
+          <span class="tag tag-blue">ALB</span>
+          <span class="tag tag-blue">ASG</span>
+          <span class="tag tag-blue">CloudWatch</span>
+          <span class="tag tag-blue">RDS</span>
+          <span class="tag tag-blue">Route 53</span>
+          <span class="tag tag-blue">CloudFront</span>
+          <span class="tag tag-blue">ACM</span>
+          <span class="tag tag-blue">Lambda</span>
         </div>
       </div>
-      <div class="skill-category">
-        <span class="skill-icon">🐧</span>
-        <div class="skill-cat-title">Linux & OS</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Ubuntu</span>
-          <span class="skill-tag">Bash Scripting</span>
-          <span class="skill-tag">Shell</span>
-          <span class="skill-tag">Systemd</span>
-          <span class="skill-tag">Cron Jobs</span>
+
+      <div class="skill-card">
+        <div class="skill-card-top">
+          <div class="skill-card-icon" style="background:rgba(57,211,83,0.1);">🐧</div>
+          <div>
+            <div class="skill-card-title">Linux &amp; Networking</div>
+            <div class="skill-card-sub">1.5 yrs production experience</div>
+          </div>
+        </div>
+        <div class="tags">
+          <span class="tag tag-green">Linux Administration</span>
+          <span class="tag tag-green">Bash Scripting</span>
+          <span class="tag tag-green">User Management</span>
+          <span class="tag tag-green">File Permissions</span>
+          <span class="tag tag-green">Process Control</span>
+          <span class="tag tag-green">SSH Key Auth</span>
+          <span class="tag tag-green">DNS / HTTP / HTTPS</span>
+          <span class="tag tag-green">UFW / Security Groups</span>
+          <span class="tag tag-green">Package Management</span>
         </div>
       </div>
-      <div class="skill-category">
-        <span class="skill-icon">🐳</span>
-        <div class="skill-cat-title">Containers & IaC</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Docker</span>
-          <span class="skill-tag">Terraform</span>
-          <span class="skill-tag">Docker Compose</span>
-          <span class="skill-tag">YAML</span>
+
+      <div class="skill-card">
+        <div class="skill-card-top">
+          <div class="skill-card-icon" style="background:rgba(47,129,247,0.1);">🌐</div>
+          <div>
+            <div class="skill-card-title">AWS Networking &amp; HA</div>
+            <div class="skill-card-sub">Multi-AZ &amp; cross-region setups</div>
+          </div>
+        </div>
+        <div class="tags">
+          <span class="tag tag-blue">Custom VPC Design</span>
+          <span class="tag tag-blue">Public/Private Subnets</span>
+          <span class="tag tag-blue">NAT Gateway</span>
+          <span class="tag tag-blue">VPC Peering</span>
+          <span class="tag tag-blue">VPC Endpoints</span>
+          <span class="tag tag-blue">Cross-Region</span>
+          <span class="tag tag-blue">Path-Based Routing</span>
+          <span class="tag tag-blue">Multi-AZ Architecture</span>
         </div>
       </div>
-      <div class="skill-category">
-        <span class="skill-icon">🔁</span>
-        <div class="skill-cat-title">CI/CD & DevOps</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Git</span>
-          <span class="skill-tag">GitHub</span>
-          <span class="skill-tag">GitHub Actions</span>
-          <span class="skill-tag">CI/CD Pipelines</span>
+
+      <div class="skill-card">
+        <div class="skill-card-top">
+          <div class="skill-card-icon" style="background:rgba(227,179,65,0.1);">🔄</div>
+          <div>
+            <div class="skill-card-title">DevOps Tools — Coming Next</div>
+            <div class="skill-card-sub">Git done · Docker, K8s, Terraform next</div>
+          </div>
         </div>
-      </div>
-      <div class="skill-category">
-        <span class="skill-icon">🌐</span>
-        <div class="skill-cat-title">Networking & DNS</div>
-        <div class="skill-tags">
-          <span class="skill-tag">DNS</span>
-          <span class="skill-tag">Route 53</span>
-          <span class="skill-tag">SSL/TLS</span>
-          <span class="skill-tag">HTTP/HTTPS</span>
-          <span class="skill-tag">CDN</span>
-        </div>
-      </div>
-      <div class="skill-category">
-        <span class="skill-icon">📊</span>
-        <div class="skill-cat-title">Monitoring & More</div>
-        <div class="skill-tags">
-          <span class="skill-tag">CloudWatch</span>
-          <span class="skill-tag">Logs</span>
-          <span class="skill-tag">Alerts</span>
-          <span class="skill-tag">Uptime Checks</span>
+        <div class="tags">
+          <span class="tag tag-green">Git &amp; GitHub ✓</span>
+          <span class="tag tag-amber">Docker</span>
+          <span class="tag tag-amber">Kubernetes</span>
+          <span class="tag tag-amber">Terraform</span>
+          <span class="tag tag-amber">GitHub Actions</span>
+          <span class="tag tag-amber">Jenkins</span>
+          <span class="tag tag-amber">Prometheus</span>
+          <span class="tag tag-amber">Grafana</span>
         </div>
       </div>
     </div>
 
-    <div style="margin-top: 3rem;">
-      <p class="section-label" style="margin-bottom: 1.2rem;">// tools I use daily</p>
-      <div class="tools-row">
-        <div class="tool-pill"><span class="tool-dot" style="background:#FF9900"></span>AWS Console</div>
-        <div class="tool-pill"><span class="tool-dot" style="background:#0078D7"></span>VS Code</div>
-        <div class="tool-pill"><span class="tool-dot" style="background:#F05032"></span>Git</div>
-        <div class="tool-pill"><span class="tool-dot" style="background:#2496ED"></span>Docker</div>
-        <div class="tool-pill"><span class="tool-dot" style="background:#7B42BC"></span>Terraform</div>
-        <div class="tool-pill"><span class="tool-dot" style="background:#4EAA25"></span>Linux Terminal</div>
-        <div class="tool-pill"><span class="tool-dot" style="background:#181717"></span>GitHub</div>
-        <div class="tool-pill"><span class="tool-dot" style="background:#00d4ff"></span>CloudFront</div>
+    <div class="progress-list fade">
+      <div class="progress-item">
+        <div class="progress-top"><span>Linux Administration</span><span style="color:var(--cyan)">100%</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--cyan);"></div></div>
       </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- INFRASTRUCTURE SHOWCASE -->
-<section id="infrastructure">
-  <div class="fade-in">
-    <p class="section-label">// 03 — live infrastructure</p>
-    <h2 class="section-title">This Site's AWS Stack</h2>
-    <div class="infra-card">
-      <pre>
-<span class="comment"># sarojops.cloud — production infrastructure</span>
-<span class="comment"># configured and deployed by Saroj</span>
-
-<span class="keyword">domain</span>:
-  registrar: <span class="value">Namecheap</span>
-  name:       <span class="domain">sarojops.cloud</span>
-  ssl:        <span class="value">enabled (AWS ACM — free)</span>
-
-<span class="keyword">dns</span>:
-  provider:   <span class="service">AWS Route 53</span>
-  hosted_zone: <span class="domain">sarojops.cloud</span>
-  records:
-    - type: <span class="value">A</span>     → <span class="service">CloudFront Distribution</span>
-    - type: <span class="value">CNAME</span> → <span class="service">ACM Certificate Validation</span>
-
-<span class="keyword">cdn</span>:
-  service:    <span class="service">AWS CloudFront</span>
-  https:      <span class="value">enforced</span>
-  cache:      <span class="value">global edge locations</span>
-
-<span class="keyword">hosting</span>:
-  service:    <span class="service">AWS S3</span>
-  type:       <span class="value">static website</span>
-  cost:       <span class="value">~₹0/month (free tier)</span>
-
-<span class="keyword">status</span>:     <span class="value">🟢 LIVE</span>
-      </pre>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- JOURNEY -->
-<section id="journey">
-  <div class="fade-in">
-    <p class="section-label">// 04 — my journey</p>
-    <h2 class="section-title">Learning Path</h2>
-    <div class="journey-list">
-      <div class="journey-item">
-        <div class="journey-date">2025 — PRESENT</div>
-        <div class="journey-title">Started DevOps Learning Journey</div>
-        <div class="journey-desc">Began mastering AWS, Linux, Docker, and CI/CD. Focused on hands-on projects and real deployments rather than just theory.</div>
+      <div class="progress-item">
+        <div class="progress-top"><span>AWS Core + Advanced</span><span style="color:var(--blue)">95%</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:95%;background:var(--blue);"></div></div>
       </div>
-      <div class="journey-item">
-        <div class="journey-date">2025</div>
-        <div class="journey-title">AWS Core Services</div>
-        <div class="journey-desc">Learned EC2, S3, IAM, VPC, Route 53, CloudFront, and ACM. Built and deployed real infrastructure on AWS.</div>
-      </div>
-      <div class="journey-item">
-        <div class="journey-date">2026</div>
-        <div class="journey-title">Launched sarojops.cloud</div>
-        <div class="journey-desc">Registered domain, configured Route 53 hosted zone, set up S3 static hosting, CloudFront CDN, and free SSL — end-to-end by myself.</div>
-      </div>
-      <div class="journey-item">
-        <div class="journey-date">NEXT</div>
-        <div class="journey-title">AWS Certification & More Projects</div>
-        <div class="journey-desc">Pursuing AWS certifications and building more complex DevOps projects — Kubernetes, advanced CI/CD pipelines, and infrastructure as code.</div>
+      <div class="progress-item">
+        <div class="progress-top"><span>DevOps Tools (Docker · K8s · Terraform · CI/CD)</span><span style="color:#e3b341">Starting</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:8%;background:#e3b341;"></div></div>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<div class="section-divider"></div>
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<div class="section-wrap" id="projects">
+  <div class="section-inner">
+    <div class="section-head fade">
+      <p class="section-eyebrow">04 — Projects</p>
+      <h2 class="section-title">14 AWS Projects — All Hands-On</h2>
+    </div>
+
+    <div class="projects-grid fade">
+
+      <a href="https://github.com/sarojbehera0610/Saroj-AWS-DevOps-Projects/tree/main/07-vpc-peering-cross-region" target="_blank" class="project-card">
+        <div class="proj-top">
+          <div class="proj-title">VPC Cross-Region Peering</div>
+          <span class="proj-diff diff-adv">Advanced</span>
+        </div>
+        <p class="proj-desc">Mumbai ↔ N.Virginia peering. Configured /32 routes, tested private IP connectivity, debugged real route table issues across regions.</p>
+        <div class="proj-tags"><span class="tag tag-blue">VPC Peering</span><span class="tag tag-blue">Cross-Region</span><span class="tag tag-blue">Route Tables</span></div>
+        <span class="proj-link">View on GitHub →</span>
+      </a>
+
+      <a href="https://github.com/sarojbehera0610/Saroj-AWS-DevOps-Projects/tree/main/12-alb-asg-integration" target="_blank" class="project-card">
+        <div class="proj-top">
+          <div class="proj-title">ALB + ASG — 3 Path-Based Target Groups</div>
+          <span class="proj-diff diff-adv">Advanced</span>
+        </div>
+        <p class="proj-desc">3 Auto Scaling Groups, 3 Target Groups, ALB routing by URL path (/home, /mobile, /payment). Real production HA design.</p>
+        <div class="proj-tags"><span class="tag tag-blue">ALB</span><span class="tag tag-blue">ASG</span><span class="tag tag-blue">Path Routing</span></div>
+        <span class="proj-link">View on GitHub →</span>
+      </a>
+
+      <a href="https://github.com/sarojbehera0610/Saroj-AWS-DevOps-Projects/tree/main/10-vpc-best-practices-alb" target="_blank" class="project-card">
+        <div class="proj-top">
+          <div class="proj-title">VPC Best Practices + Private Servers</div>
+          <span class="proj-diff diff-adv">Advanced</span>
+        </div>
+        <p class="proj-desc">Web servers in private subnets, ALB in public, security group chaining — zero direct public access to instances.</p>
+        <div class="proj-tags"><span class="tag tag-blue">VPC</span><span class="tag tag-blue">SG Chaining</span><span class="tag tag-blue">Security</span></div>
+        <span class="proj-link">View on GitHub →</span>
+      </a>
+
+      <a href="https://github.com/sarojbehera0610/Saroj-AWS-DevOps-Projects/tree/main/11-autoscaling-policies" target="_blank" class="project-card">
+        <div class="proj-top">
+          <div class="proj-title">Auto Scaling — All 3 Policy Types</div>
+          <span class="proj-diff diff-adv">Advanced</span>
+        </div>
+        <p class="proj-desc">Manual, step, and target tracking scaling — tested real scale-out and scale-in under simulated load.</p>
+        <div class="proj-tags"><span class="tag tag-blue">ASG</span><span class="tag tag-blue">Target Tracking</span><span class="tag tag-blue">Step Scaling</span></div>
+        <span class="proj-link">View on GitHub →</span>
+      </a>
+
+      <a href="https://github.com/sarojbehera0610/Saroj-AWS-DevOps-Projects/tree/main/13-ec2-custom-metrics-cloudwatch-agent" target="_blank" class="project-card">
+        <div class="proj-top">
+          <div class="proj-title">CloudWatch Agent + Custom Metrics</div>
+          <span class="proj-diff diff-int">Intermediate</span>
+        </div>
+        <p class="proj-desc">mem_used_percent metrics + Nginx log collection. CloudWatch alarms on CPU thresholds. Real observability setup.</p>
+        <div class="proj-tags"><span class="tag tag-blue">CloudWatch</span><span class="tag tag-blue">Custom Metrics</span><span class="tag tag-blue">Logs</span></div>
+        <span class="proj-link">View on GitHub →</span>
+      </a>
+
+      <a href="https://github.com/sarojbehera0610/Saroj-AWS-DevOps-Projects/tree/main/06-vpc-public-private" target="_blank" class="project-card">
+        <div class="proj-top">
+          <div class="proj-title">VPC Public/Private + NAT Gateway</div>
+          <span class="proj-diff diff-int">Intermediate</span>
+        </div>
+        <p class="proj-desc">Two-tier VPC from scratch — public/private subnets, IGW for public, NAT for private internet access without exposure.</p>
+        <div class="proj-tags"><span class="tag tag-blue">VPC</span><span class="tag tag-blue">NAT Gateway</span><span class="tag tag-blue">Subnets</span></div>
+        <span class="proj-link">View on GitHub →</span>
+      </a>
+
+      <a href="https://github.com/sarojbehera0610/Saroj-AWS-DevOps-Projects/tree/main/05-efs-multi-az" target="_blank" class="project-card">
+        <div class="proj-top">
+          <div class="proj-title">EFS Multi-AZ Shared Storage</div>
+          <span class="proj-diff diff-int">Intermediate</span>
+        </div>
+        <p class="proj-desc">NFS-based EFS across multiple EC2 in different AZs. Persistent fstab mounts + tested shared file access.</p>
+        <div class="proj-tags"><span class="tag tag-blue">EFS</span><span class="tag tag-blue">NFS</span><span class="tag tag-blue">Multi-AZ</span></div>
+        <span class="proj-link">View on GitHub →</span>
+      </a>
+
+      <a href="https://github.com/sarojbehera0610/Saroj-AWS-DevOps-Projects/tree/main/01-ubuntu-ec2-fresh" target="_blank" class="project-card">
+        <div class="proj-top">
+          <div class="proj-title">Ubuntu EC2 + Nginx Production Deploy</div>
+          <span class="proj-diff diff-beg">Beginner</span>
+        </div>
+        <p class="proj-desc">Launched, hardened, and served live web page — UFW firewall, security groups, Nginx. Foundation of all other projects.</p>
+        <div class="proj-tags"><span class="tag tag-blue">EC2</span><span class="tag tag-blue">Nginx</span><span class="tag tag-blue">UFW</span></div>
+        <span class="proj-link">View on GitHub →</span>
+      </a>
+
+      <a href="https://sarojops.cloud" class="project-card" style="border-color:rgba(47,129,247,0.35);background:rgba(47,129,247,0.04);">
+        <div class="proj-top">
+          <div class="proj-title">sarojops.cloud — This Portfolio on AWS</div>
+          <span class="proj-diff diff-live">Live</span>
+        </div>
+        <p class="proj-desc">Registered on Namecheap, hosted zone in Route 53, S3 static hosting, CloudFront CDN, free SSL via ACM. Done independently.</p>
+        <div class="proj-tags"><span class="tag tag-blue">Route 53</span><span class="tag tag-blue">S3</span><span class="tag tag-blue">CloudFront</span><span class="tag tag-blue">ACM</span></div>
+        <span class="proj-link">sarojops.cloud →</span>
+      </a>
+
+    </div>
+
+    <div class="projects-all fade">
+      <div class="projects-all-text"><strong>14 total projects</strong> — all with full READMEs and architecture documentation on GitHub</div>
+      <a href="https://github.com/sarojbehera0610/Saroj-AWS-DevOps-Projects" target="_blank" class="btn btn-ghost" style="font-size:0.8rem;">View All 14 Projects →</a>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
 
 <!-- CONNECT -->
-<section id="connect">
-  <div class="fade-in">
-    <p class="section-label">// 05 — let's connect</p>
-    <h2 class="section-title">Find Me Online</h2>
-    <div class="social-grid">
-      <a href="https://github.com/Saroj0610" target="_blank" class="social-card">
-        <div class="social-icon" style="background:rgba(255,255,255,0.05)">⚙️</div>
-        <div>
-          <div class="social-name">GitHub</div>
-          <div class="social-handle">@Saroj0610</div>
+<div class="section-wrap" id="connect">
+  <div class="section-inner">
+    <div class="section-head fade">
+      <p class="section-eyebrow">05 — Connect</p>
+      <h2 class="section-title">Let's Work Together</h2>
+    </div>
+
+    <div class="connect-layout fade">
+      <div class="connect-left">
+        <div class="connect-availability">
+          <span class="avail-dot"></span>
+          <div>
+            <div class="avail-text">Available for opportunities</div>
+            <div class="avail-sub">DevOps · Cloud · AWS Engineer roles</div>
+          </div>
         </div>
-      </a>
-      <a href="https://linkedin.com/in/saroj" target="_blank" class="social-card">
-        <div class="social-icon" style="background:rgba(0,119,181,0.15)">💼</div>
-        <div>
-          <div class="social-name">LinkedIn</div>
-          <div class="social-handle">Connect with me</div>
+        <p>I'm <strong>Saroj Behera</strong>, a DevOps engineer based in <strong>Nagpur, Maharashtra</strong>. I bring real Linux server experience from production environments combined with hands-on AWS cloud skills built through 14 self-driven projects.</p>
+        <p style="margin-top:1rem;">I'm eager to join a team where I can contribute, grow, and help build reliable cloud infrastructure. If you're looking for someone who learns fast, works independently, and takes ownership — let's talk.</p>
+        <div style="margin-top:1.5rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <a href="mailto:sarojbehera0610@gmail.com" class="btn btn-blue">Send Email</a>
+          <a href="https://www.linkedin.com/in/saroj-behera-7bb84b204/" target="_blank" class="btn btn-ghost">LinkedIn</a>
         </div>
-      </a>
-      <a href="mailto:saroj@sarojops.cloud" class="social-card">
-        <div class="social-icon" style="background:rgba(0,212,255,0.1)">✉️</div>
-        <div>
-          <div class="social-name">Email</div>
-          <div class="social-handle">saroj@sarojops.cloud</div>
-        </div>
-      </a>
-      <a href="https://sarojops.cloud" class="social-card">
-        <div class="social-icon" style="background:rgba(16,185,129,0.1)">🌐</div>
-        <div>
-          <div class="social-name">Portfolio</div>
-          <div class="social-handle">sarojops.cloud</div>
-        </div>
-      </a>
+      </div>
+
+      <div class="connect-links">
+        <a href="mailto:sarojbehera0610@gmail.com" class="connect-link">
+          <div class="cl-icon">✉️</div>
+          <div><div class="cl-label">Email</div><div class="cl-val">sarojbehera0610@gmail.com</div></div>
+          <span class="cl-arrow">↗</span>
+        </a>
+        <a href="https://www.linkedin.com/in/saroj-behera-7bb84b204/" target="_blank" class="connect-link">
+          <div class="cl-icon">💼</div>
+          <div><div class="cl-label">LinkedIn</div><div class="cl-val">saroj-behera-7bb84b204</div></div>
+          <span class="cl-arrow">↗</span>
+        </a>
+        <a href="https://github.com/sarojbehera0610" target="_blank" class="connect-link">
+          <div class="cl-icon">⚙️</div>
+          <div><div class="cl-label">GitHub Profile</div><div class="cl-val">github.com/sarojbehera0610</div></div>
+          <span class="cl-arrow">↗</span>
+        </a>
+        <a href="https://github.com/sarojbehera0610/Saroj-AWS-DevOps-Projects" target="_blank" class="connect-link">
+          <div class="cl-icon">📁</div>
+          <div><div class="cl-label">AWS Projects Repo</div><div class="cl-val">14 projects · documented</div></div>
+          <span class="cl-arrow">↗</span>
+        </a>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- FOOTER -->
 <footer>
-  <p>Designed & Deployed by <span>Saroj</span> · Hosted on <span>AWS</span> · Domain: <span>sarojops.cloud</span></p>
-  <p style="margin-top: 0.5rem; font-size: 0.7rem;">Route 53 · CloudFront · S3 · ACM · Built with ☁️ and determination</p>
+  <div class="footer-left">
+    Saroj Behera &nbsp;·&nbsp; <a href="https://sarojops.cloud">sarojops.cloud</a> &nbsp;·&nbsp; Nagpur, India
+  </div>
+  <div class="footer-right">
+    Hosted on AWS S3 + CloudFront + Route 53 + ACM
+  </div>
 </footer>
 
 <script>
-  // Scroll fade-in
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.fade').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
